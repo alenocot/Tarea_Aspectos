@@ -7,6 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.paint.*;
+import javafx.geometry.*;
+import javafx.beans.binding.Bindings;
+
+
+
 
 public class Ventana extends Application{
 	private VBox root;
@@ -16,9 +21,9 @@ public class Ventana extends Application{
 	
 	public Ventana () {
 		root = new VBox(10);
-		btn_amarillo = new Button("Amarillo");
-		btn_azul = new Button("Azul");
-		btn_rojo = new Button("Rojo");
+		btn_amarillo = new Button("YELLOW");
+		btn_azul = new Button("BLUE");
+		btn_rojo = new Button("RED");
 		agregarBotones();
 	}
 	
@@ -33,13 +38,20 @@ public class Ventana extends Application{
 		btn_rojo.setMinSize(90.0, 60.0);
 		root.setAlignment(Pos.CENTER);
 		
+		eventoBoton();
+		
 	}
 
 	private void eventoBoton() {
-		
+		Button[] botones = {btn_amarillo,btn_azul,btn_rojo};
+		for(Button b: botones) {
+			b.setOnAction(e->cambiarColor(Color.web(b.getText())));
+			System.out.println(b.getText());
+		}
 	}
-	private void cambiarColor(Color color) {	
-		root.setStyle("-fx-background-color: "+color.toString());
+	private void cambiarColor(Color color) {      
+		 root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+
 	}
 	
 	@Override
